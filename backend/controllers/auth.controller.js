@@ -1,6 +1,6 @@
 // signup function
 export const signup = (req, res) => {
-  res.sent("finally called the signup function ");
+  res.send("finally called the signup function ");
 };
 
 // login function 
