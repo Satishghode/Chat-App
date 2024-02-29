@@ -46,22 +46,22 @@ export const sentMessage = async (req, res) => {
     
 }
 
-
+// get Messages from the User 
 export const getMessage = async (req, res ) => {
 
     try {
-        const { id : userToChatId } = req.params;
-        const senderId = req.user._id;
+        const { id : userToChatId } = req.params; // get user Id from the request parameters  
+        const senderId = req.user._id; // get sender Id from the request boody; 
 
-        const conversation =  await Conversation.findOne({
+        const conversation =  await Conversation.findOne({ // find the conversation id the database 
             participates : { $all: [senderId, userToChatId] },
         }).populate("messages");
 
-        if(!conversation) return res.status(200).json([]);
+        if(!conversation) return res.status(200).json([]); // check if the no conversation existe then return the empty array  
 
         const message = conversation.messages;
 
-        res.status(200).json(message);
+        res.status(200).json(message); //
 
         
     } catch (error) {
