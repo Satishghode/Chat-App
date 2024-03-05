@@ -1,5 +1,6 @@
 function App() {
   return (
+    // try and bulid static pages in the same directory as static pages
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure>
         <img
