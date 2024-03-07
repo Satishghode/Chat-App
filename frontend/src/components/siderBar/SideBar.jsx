@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchInput from './SearchInput'
+import Conversations from './Conversations'
 
 function SideBar() {
   return (
@@ -7,7 +8,7 @@ function SideBar() {
       <SearchInput />
 
       <div className='divider px-3' ></div>
-      {/* <Conversations /> */}
+      <Conversations />
       {/* <LogOutButton /> */}
 
     </div>
