@@ -1,0 +1,9 @@
+# Convert the given file .env example into a .env file then...
+
+
+
+PORT=
+MONGO_DB_URI=
+JWT_SECRET=
+NODE_ENV=development 
+
