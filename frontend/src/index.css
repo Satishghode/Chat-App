@@ -9,3 +9,24 @@ body {
 	background-size: cover;
 	background-position: center;
 }
+
+
+/* dark mode looking scrollbar */
+::-webkit-scrollbar {
+	cursor: pointer;
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	cursor: pointer;
+	/* background: #161414; */
+}
+
+::-webkit-scrollbar-thumb {
+	background: #535353;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #6e6d6d;
+}
