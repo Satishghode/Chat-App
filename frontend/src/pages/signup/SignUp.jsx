@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import GenderCheckBox from "./GenderCheckBox";
 import { Link } from "react-router-dom";
+import useSignup from "../../hooks/useSignup";
 
 function SignUp() {
+
+  const {loading,signup } = useSignup();
+
+  const [inputs, setInputs] = useState({
+    fullName: "",
+    userName: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+  });
+
+  const handleCheckboxChange = (gender) => {
+    setInputs({ ...inputs, gender });
+  };
+
+  const handelSubmit = async(e) => {
+    e.preventDefault();
+    await signup(inputs);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-w-96 max-auto ">
       <div className="h-full p-6 w-full bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-20    ">
         <h1 className="text-3xl font-semibold text-center text-gray-300 ">
           SignUp <span className="text-blue-300"> Chat App</span>{" "}
         </h1>
-        <form>
+        <form onSubmit={handelSubmit}>
           <div className="mt-6">
             <label className="input input-bordered flex items-center gap-2">
               <svg
@@ -20,9 +41,18 @@ function SignUp() {
               >
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
               </svg>
-              <input type="text" className="grow" placeholder="Full Name" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Full Name"
+                value={inputs.fullName}
+                onChange={(e) =>
+                  setInputs({ ...inputs, fullName: e.target.value })
+                }
+              />
             </label>
           </div>
+
           <div className="mt-6">
             <label className="input input-bordered flex items-center gap-2">
               <svg
@@ -33,9 +63,18 @@ function SignUp() {
               >
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
               </svg>
-              <input type="text" className="grow" placeholder="UserName" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="UserName"
+                value={inputs.userName}
+                onChange={(e) =>
+                  setInputs({ ...inputs, userName: e.target.value })
+                }
+              />
             </label>
           </div>
+
           <div className="mt-6">
             <label className="input input-bordered flex items-center gap-2">
               <svg
@@ -50,9 +89,18 @@ function SignUp() {
                   clipRule="evenodd"
                 />
               </svg>
-              <input type="password" className="grow" placeholder="Password" />
+              <input
+                type="password"
+                className="grow"
+                placeholder="Password"
+                value={inputs.password}
+                onChange={(e) =>
+                  setInputs({ ...inputs, password: e.target.value })
+                }
+              />
             </label>
           </div>
+
           <div className="mt-6">
             <label className="input input-bordered flex items-center gap-2">
               <svg
@@ -71,22 +119,32 @@ function SignUp() {
                 type="password"
                 className="grow"
                 placeholder="Confirm Password"
+                value={inputs.confirmPassword}
+                onChange={(e) =>
+                  setInputs({ ...inputs, confirmPassword: e.target.value })
+                }
               />
             </label>
           </div>
+
           {/* GENDER CHECKBOX COMPONENTS HERE */}
-          <GenderCheckBox />
+          <GenderCheckBox
+            onCheckboxChange={handleCheckboxChange}
+            selectedGender={inputs.gender}
+          />
 
           <Link
-            to="/login"
+            to={"/login"}
             className="text-sm hover:underline hover:text-blue-500 mt-2 inline-block "
           >
             Already have an account?
           </Link>
-          <div>
-            <button className="btn btn-block btn-sm mt-2 border border-slate-700 " >Sign Up</button>
-          </div>
 
+          <div>
+            <button className="btn btn-block btn-sm mt-2 border border-slate-700 ">
+              Sign Up
+            </button>
+          </div>
         </form>
       </div>
     </div>
