@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Login() {
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (event) => {
+    //  set input field data to the formData propert.
+    setFormData({ ...formData, [event.target.id]: event.target.value.trim() });
+  };
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto ">
       <div className="h-full p-6 w-full bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-20    ">
@@ -9,7 +21,7 @@ function Login() {
           Login
           <span className="text-blue-400"> Chat App </span>
         </h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mt-6">
             {/* <span className="  p-2 text-base label-text ">UserName</span> */}
             <label className=" input input-bordered flex items-center gap-2">
@@ -25,6 +37,7 @@ function Login() {
                 type="text"
                 className="grow"
                 placeholder="Enter Username"
+                id="userName" onChange={handleChange}
               />
             </label>
           </div>
@@ -42,19 +55,25 @@ function Login() {
                   clipRule="evenodd"
                 />
               </svg>
-              <input type="password" className="grow" value="password" />
+              <input
+                type="password"
+                className="grow"
+                placeholder="Password"
+                id="password"
+                onChange={handleChange}
+              />
             </label>
           </div>
           <Link
             to="/signup"
-            className="text-sm hover:underline hover:text-blue-300 mt-2 inline-block ">
+            className="text-sm hover:underline hover:text-blue-300 mt-2 inline-block "
+          >
             {"Don't"} have an account?
           </Link>
 
           <div>
             <button className="btn btn-block btn-sm mt-2 ">Login</button>
           </div>
-
         </form>
       </div>
     </div>
