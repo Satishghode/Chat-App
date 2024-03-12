@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({});
-
+  // tack the data into the fields 
   const handleChange = (event) => {
     //  set input field data to the formData propert.
     setFormData({ ...formData, [event.target.id]: event.target.value.trim() });
   };
+
+  // handleChange on submit button.
   
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-// import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 
 // use this method to register the user with fullName, userName, password, confirmPassword, gender
 const useSignup = () => {
 	const [loading, setLoading] = useState(false);
-	// const { setAuthUser } = useAuthContext();
+	const { setAuthUser } = useAuthContext();
 	// this method is used to verify user data and send it to the server 
 	const signup = async ({ fullName, userName, password, confirmPassword, gender }) => {
 		const success = handleInputErrors({ fullName, userName, password, confirmPassword, gender });
@@ -24,8 +24,11 @@ const useSignup = () => {
 			if (data.error) {
 				throw new Error(data.error);
 			}
+
 			localStorage.setItem("chat-user", JSON.stringify(data));
 			setAuthUser(data);
+
+			
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -52,7 +55,7 @@ function handleInputErrors({ fullName, userName, password, confirmPassword, gend
 	// check the password lenfth field
 	if (password.length < 6) {
 		toast.error("Password must be at least 6 characters");
-		return false;
+		return false;	
 	}
 
 	return true;
