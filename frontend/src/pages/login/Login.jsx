@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 function Login() {
-  const [formData, setFormData] = useState({});
-  // tack the data into the fields 
-  const handleChange = (event) => {
-    //  set input field data to the formData propert.
-    setFormData({ ...formData, [event.target.id]: event.target.value.trim() });
-  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  // handleChange on submit button.
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(formData);
+  const { loading, login } = useLogin();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(username, password);
   };
 
   return (
@@ -39,7 +36,8 @@ function Login() {
                 type="text"
                 className="grow"
                 placeholder="Enter Username"
-                id="userName" onChange={handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </label>
           </div>
@@ -61,8 +59,8 @@ function Login() {
                 type="password"
                 className="grow"
                 placeholder="Password"
-                id="password"
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </label>
           </div>
@@ -74,7 +72,9 @@ function Login() {
           </Link>
 
           <div>
-            <button className="btn btn-block btn-sm mt-2 ">Login</button>
+            <button className="btn btn-block btn-sm mt-2 " disabled={loading}>
+              { loading ? <span className="loading loading-spinner" ></span> : "Login"}
+            </button>
           </div>
         </form>
       </div>
