@@ -7,13 +7,13 @@ import { useAuthContext } from "../context/AuthContext";
 
 const useLogin = () => {
 
-    const [loading, setloading]= useState();   
+    const [loading, setLoading]= useState(false);   
     const { setAuthUser } = useAuthContext();
 
     const login = async (username, password) => {
         const success = handleInputErrors(username, password);
 		if (!success) return;
-        setloading(true);
+        setLoading(true);
         try {
             const res = await fetch("/api/auth/login", {
 				method: "POST",
@@ -32,7 +32,7 @@ const useLogin = () => {
         } catch (error) {
             toast.error(error.message); 
         }finally{
-            setloading(false);
+            setLoading(false);
         }
 
     }
